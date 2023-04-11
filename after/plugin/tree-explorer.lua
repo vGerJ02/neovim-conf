@@ -11,7 +11,7 @@ vim.opt.termguicolors = true
 require("nvim-tree").setup({
 
 	filters = {
-		dotfiles = true,
+		dotfiles = false,
 	},
 
 })
@@ -19,10 +19,3 @@ require("nvim-tree").setup({
 
 vim.keymap.set('n', '<leader>e', vim.cmd.NvimTreeToggle)
 
-local function open_nvim_tree()
-
-  -- open the tree
-  require("nvim-tree.api").tree.open()
-end
-
-vim.api.nvim_create_autocmd({ "VimEnter" }, { callback = open_nvim_tree })

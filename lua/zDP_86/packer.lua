@@ -12,7 +12,10 @@ return require('packer').startup(function(use)
 	  requires = { {'nvim-lua/plenary.nvim'} }
   }
 
+  --Themes
   use "shaunsingh/nord.nvim"
+  use({ 'rose-pine/neovim', as = 'rose-pine'})
+
   use {
 	  'nvim-lualine/lualine.nvim',
 	  requires = { 'kyazdani42/nvim-web-devicons', opt = true }
@@ -53,12 +56,35 @@ return require('packer').startup(function(use)
 
 		  -- Snippets
 		  {'L3MON4D3/LuaSnip'},             -- Required
-		  {'rafamadriz/friendly-snippets'}, -- Optional
+		  {'rafamadriz/friendly-snippets'}, -- Optional } } use {"akinsho/toggleterm.nvim", tag = '*', config = function() }
+		  }
 	  }
-  }
+  
   use {"akinsho/toggleterm.nvim", tag = '*', config = function()
 	  require("toggleterm").setup()
   end} 
+  -- Lua
+  use {
+	  "ahmedkhalf/project.nvim",
+	  config = function()
+		  require("project_nvim").setup {
+			  -- your configuration comes here
+			  -- or leave it empty to use the default settings
+			  -- refer to the configuration section below
+		  }
+	  end
+  }
+  use 'nvim-tree/nvim-web-devicons'
+  use {'romgrk/barbar.nvim', requires = 'nvim-web-devicons'}
+  -- Lua
+  
+  use {
+	  "folke/which-key.nvim",
+	  config = function()
+		  vim.o.timeout = true
+		  vim.o.timeoutlen = 300
+		  require("which-key").setup{}
+	  end
+  }
+
 end)
-
-
