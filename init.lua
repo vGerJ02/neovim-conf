@@ -1,5 +1,4 @@
-require("zDP_86")
-
+require("core")
 --vim.cmd[[colorscheme nord]]
 vim.cmd('colorscheme rose-pine')
 
