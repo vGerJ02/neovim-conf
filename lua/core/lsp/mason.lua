@@ -11,6 +11,8 @@ end
 local servers = {
 	"lua_ls",
 	"pyright",
+	"clangd",
+	"jdtls",
 }
 
 mason.setup()

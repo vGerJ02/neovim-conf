@@ -85,3 +85,5 @@ bind('n','<leader>gg', '<cmd>LazyGit<cr>', opts)
 
 
 
+---lsp
+bind('n','<leader>cf', vim.lsp.buf.format, opts)
