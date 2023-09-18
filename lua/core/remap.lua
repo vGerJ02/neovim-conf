@@ -4,9 +4,33 @@ vim.g.maplocalleader = ","
 local bind = vim.keymap.set
 local map = vim.api.nvim_set_keymap
 
+local opts = { noremap = true, silent = true }
+
+--Auxiliar functions
+local function optsWithDesc(options, desc)
+	local custom_opts = vim.tbl_extend('keep', { desc = desc }, options)
+	return custom_opts
+end
+
+
+
 --Default
 bind("n", "<leader>q", vim.cmd.q, {desc = "[q]uit"})
 bind("n", "<leader>w", vim.cmd.w, {desc = "[w]rite changes"})
+bind("n", "<leader>W", vim.cmd.wqall, {desc = "[W]rite all changes and quit"})
+
+--Windows
+bind("n", "<C-h>", "<C-w>h", optsWithDesc(opts, "Focus left window"))
+bind("n", "<C-l>", "<C-w>l", optsWithDesc(opts, "Focus right window"))
+bind("n", "<C-j>", "<C-w>j", optsWithDesc(opts, "Focus down window"))
+bind("n", "<C-k>", "<C-w>k", optsWithDesc(opts, "Focus upper window"))
+
+--Resize
+bind("n", "<C-Up>", ":resize +2<CR>", optsWithDesc(opts, "Resize up"))
+bind("n", "<C-Down>", ":resize -2<CR>", optsWithDesc(opts, "Resize down"))
+bind("n", "<C-Left>", ":vertical resize -2<CR>", optsWithDesc(opts, "Resize left"))
+bind("n", "<C-Right>", ":vertical resize +2<CR>", optsWithDesc(opts, "Resize right"))
+
 
 --Plugins
 require("core.lazy")
@@ -21,7 +45,6 @@ bind('n', '<leader><esc>', vim.cmd.NvimTreeFocus, {desc = "Focus explorer"})
 
 --------------------------------------------------------------------------------Barbar
 
-local opts = { noremap = true, silent = true }
 
 -- Move to previous/next
 map('n', '<A-,>', '<Cmd>BufferPrevious<CR>', opts)
