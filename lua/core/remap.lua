@@ -70,10 +70,10 @@ map('n', '<A-q>', '<Cmd>BufferClose<CR>', opts)
 --Pick buffer
 map('n', '<C-p>', '<Cmd>BufferPick<CR>', opts)
 -- Sort automatically by...
-map('n', '<Space>bb', '<Cmd>BufferOrderByBufferNumber<CR>', opts)
-map('n', '<Space>bd', '<Cmd>BufferOrderByDirectory<CR>', opts)
-map('n', '<Space>bl', '<Cmd>BufferOrderByLanguage<CR>', opts)
-map('n', '<Space>bw', '<Cmd>BufferOrderByWindowNumber<CR>', opts)
+map('n', '<Space>bb', '<Cmd>BufferOrderByBufferNumber<CR>', optsWithDesc(opts, "Order by buffer number"))
+map('n', '<Space>bd', '<Cmd>BufferOrderByDirectory<CR>', optsWithDesc(opts, "Order by directory"))
+map('n', '<Space>bl', '<Cmd>BufferOrderByLanguage<CR>', optsWithDesc(opts, "Order by language"))
+map('n', '<Space>bw', '<Cmd>BufferOrderByWindowNumber<CR>', optsWithDesc(opts, "Order by window number"))
 
 
 --------------------------------------------------------------------------------Teminal
@@ -89,9 +89,9 @@ function _G.set_terminal_keymaps()
 end
 vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 -- Multiple terminals with <id><C-\>
-map('n', '<Leader>/', '<cmd>ToggleTerm direction=float<cr>', opts)
-map('n', '<Leader>th', '<cmd>ToggleTerm size=20 direction=horizontal<cr>', opts)
-map('n', '<Leader>tv', '<cmd>ToggleTerm size=50 direction=vertical<cr>', opts)
+map('n', '<Leader>/', '<cmd>ToggleTerm direction=float<cr>', optsWithDesc(opts, "Floating term"))
+map('n', '<Leader>th', '<cmd>ToggleTerm size=20 direction=horizontal<cr>', optsWithDesc(opts, "Horizontal term"))
+map('n', '<Leader>tv', '<cmd>ToggleTerm size=50 direction=vertical<cr>', optsWithDesc(opts, "Vertical term"))
 
 
 --------------------------------------------------------------------------------Fuzzy
@@ -109,4 +109,4 @@ bind('n','<leader>gg', '<cmd>LazyGit<cr>', opts)
 
 
 ---lsp
-bind('n','<leader>cf', vim.lsp.buf.format, opts)
+bind('n','<leader>cf', vim.lsp.buf.format, optsWithDesc(opts, "Code format"))

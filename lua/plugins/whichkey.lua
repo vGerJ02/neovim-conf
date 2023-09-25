@@ -9,12 +9,15 @@ return {
 		wk.register({
 			["<leader>"] = {
 				a = { "Show function" },
-				b = { "Buffers" },
+				b = { name = "+Buffers" },
 				f = { name = "+Find" },
 				e = { "Explorer" },
+				g = { name = "+Git" },
+				t = { name = "+Terminal" },
+				c = { name = "+Code" },
+				u = { name = "+Undo" }
 			}
 
 		})
 	end,
 }
-
