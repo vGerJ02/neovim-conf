@@ -13,6 +13,8 @@ local servers = {
 	"pyright",
 	"clangd",
 	"jdtls",
+	"cssls",
+	"bashls",
 }
 
 mason.setup()

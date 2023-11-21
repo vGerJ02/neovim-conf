@@ -7,7 +7,7 @@ local map = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
 
 --Auxiliar functions
-local function optsWithDesc(options, desc)
+function OptsWithDesc(options, desc)
 	local custom_opts = vim.tbl_extend('keep', { desc = desc }, options)
 	return custom_opts
 end
@@ -20,16 +20,16 @@ bind("n", "<leader>w", vim.cmd.w, {desc = "[w]rite changes"})
 bind("n", "<leader>W", vim.cmd.wqall, {desc = "[W]rite all changes and quit"})
 
 --Windows
-bind("n", "<C-h>", "<C-w>h", optsWithDesc(opts, "Focus left window"))
-bind("n", "<C-l>", "<C-w>l", optsWithDesc(opts, "Focus right window"))
-bind("n", "<C-j>", "<C-w>j", optsWithDesc(opts, "Focus down window"))
-bind("n", "<C-k>", "<C-w>k", optsWithDesc(opts, "Focus upper window"))
+bind("n", "<C-h>", "<C-w>h", OptsWithDesc(opts, "Focus left window"))
+bind("n", "<C-l>", "<C-w>l", OptsWithDesc(opts, "Focus right window"))
+bind("n", "<C-j>", "<C-w>j", OptsWithDesc(opts, "Focus down window"))
+bind("n", "<C-k>", "<C-w>k", OptsWithDesc(opts, "Focus upper window"))
 
 --Resize
-bind("n", "<C-Up>", ":resize +2<CR>", optsWithDesc(opts, "Resize up"))
-bind("n", "<C-Down>", ":resize -2<CR>", optsWithDesc(opts, "Resize down"))
-bind("n", "<C-Left>", ":vertical resize -2<CR>", optsWithDesc(opts, "Resize left"))
-bind("n", "<C-Right>", ":vertical resize +2<CR>", optsWithDesc(opts, "Resize right"))
+bind("n", "<C-Up>", ":resize +2<CR>", OptsWithDesc(opts, "Resize up"))
+bind("n", "<C-Down>", ":resize -2<CR>", OptsWithDesc(opts, "Resize down"))
+bind("n", "<C-Left>", ":vertical resize -2<CR>", OptsWithDesc(opts, "Resize left"))
+bind("n", "<C-Right>", ":vertical resize +2<CR>", OptsWithDesc(opts, "Resize right"))
 
 
 --Plugins
@@ -70,10 +70,10 @@ map('n', '<A-q>', '<Cmd>BufferClose<CR>', opts)
 --Pick buffer
 map('n', '<C-p>', '<Cmd>BufferPick<CR>', opts)
 -- Sort automatically by...
-map('n', '<Space>bb', '<Cmd>BufferOrderByBufferNumber<CR>', optsWithDesc(opts, "Order by buffer number"))
-map('n', '<Space>bd', '<Cmd>BufferOrderByDirectory<CR>', optsWithDesc(opts, "Order by directory"))
-map('n', '<Space>bl', '<Cmd>BufferOrderByLanguage<CR>', optsWithDesc(opts, "Order by language"))
-map('n', '<Space>bw', '<Cmd>BufferOrderByWindowNumber<CR>', optsWithDesc(opts, "Order by window number"))
+map('n', '<Space>bb', '<Cmd>BufferOrderByBufferNumber<CR>', OptsWithDesc(opts, "Order by buffer number"))
+map('n', '<Space>bd', '<Cmd>BufferOrderByDirectory<CR>', OptsWithDesc(opts, "Order by directory"))
+map('n', '<Space>bl', '<Cmd>BufferOrderByLanguage<CR>', OptsWithDesc(opts, "Order by language"))
+map('n', '<Space>bw', '<Cmd>BufferOrderByWindowNumber<CR>', OptsWithDesc(opts, "Order by window number"))
 
 
 --------------------------------------------------------------------------------Teminal
@@ -89,9 +89,9 @@ function _G.set_terminal_keymaps()
 end
 vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 -- Multiple terminals with <id><C-\>
-map('n', '<Leader>/', '<cmd>ToggleTerm direction=float<cr>', optsWithDesc(opts, "Floating term"))
-map('n', '<Leader>th', '<cmd>ToggleTerm size=20 direction=horizontal<cr>', optsWithDesc(opts, "Horizontal term"))
-map('n', '<Leader>tv', '<cmd>ToggleTerm size=50 direction=vertical<cr>', optsWithDesc(opts, "Vertical term"))
+map('n', '<Leader>/', '<cmd>ToggleTerm direction=float<cr>', OptsWithDesc(opts, "Floating term"))
+map('n', '<Leader>th', '<cmd>ToggleTerm size=20 direction=horizontal<cr>', OptsWithDesc(opts, "Horizontal term"))
+map('n', '<Leader>tv', '<cmd>ToggleTerm size=50 direction=vertical<cr>', OptsWithDesc(opts, "Vertical term"))
 
 
 --------------------------------------------------------------------------------Fuzzy
@@ -109,4 +109,4 @@ bind('n','<leader>gg', '<cmd>LazyGit<cr>', opts)
 
 
 ---lsp
-bind('n','<leader>cf', vim.lsp.buf.format, optsWithDesc(opts, "Code format"))
+bind('n','<leader>cf', vim.lsp.buf.format, OptsWithDesc(opts, "Code format"))

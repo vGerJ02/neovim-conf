@@ -12,7 +12,7 @@ return {
 	},
 
 	'mbbill/undotree',
-	{ "windwp/nvim-autopairs",   opts = {} },
+	{ "windwp/nvim-autopairs",    opts = {} },
 
 	'romgrk/barbar.nvim',
 
@@ -23,8 +23,11 @@ return {
 		end
 	},
 
+	{ 'numToStr/Comment.nvim',    opts = {} },
+	{ 'norcalli/nvim-colorizer.lua', opts = {} },
+	-- { 'max397574/colortils.nvim', opts = {} },
 
 	--Git
-	{ 'kdheepak/lazygit.nvim',   lazy = true, cmd = { 'LazyGit' } },
-	{ 'lewis6991/gitsigns.nvim', opts = {} }
+	{ 'kdheepak/lazygit.nvim',    lazy = true, cmd = { 'LazyGit' } },
+	{ 'lewis6991/gitsigns.nvim',  opts = {} }
 }

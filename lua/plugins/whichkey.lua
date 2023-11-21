@@ -15,7 +15,8 @@ return {
 				g = { name = "+Git" },
 				t = { name = "+Terminal" },
 				c = { name = "+Code" },
-				u = { name = "+Undo" }
+				u = { name = "+Undo" },
+				l = { name = "+Lsp" }
 			}
 
 		})
