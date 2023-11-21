@@ -61,30 +61,30 @@ return {
 			ensure_installed = { "lua_ls", "pyright", "clangd", "cssls", "html" },
 
 			automatic_installation = true,
-		})
-		require("mason-lspconfig").setup_handlers({
-			-- The first entry (without a key) will be the default handler
-			-- and will be called for each installed server that doesn't have
-			-- a dedicated handler.
-			function(server_name) -- default handler (optional)
-				require("lspconfig")[server_name].setup({
-					on_attach = on_attach,
-					capabilities = cmp_nvim_lsp.default_capabilities(),
-				})
-			end,
+			handlers = {
+				-- The first entry (without a key) will be the default handler
+				-- and will be called for each installed server that doesn't have
+				-- a dedicated handler.
+				function(server_name) -- default handler (optional)
+					require("lspconfig")[server_name].setup({
+						on_attach = on_attach,
+						capabilities = cmp_nvim_lsp.default_capabilities(),
+					})
+				end,
 
-			-- Next, you can provide a dedicated handler for specific servers.
-			["lua_ls"] = function()
-				require("lspconfig").lua_ls.setup({
-					settings = {
-						Lua = {
-							diagnostics = {
-								globals = { "vim" },
+				-- Next, you can provide a dedicated handler for specific servers.
+				["lua_ls"] = function()
+					require("lspconfig").lua_ls.setup({
+						settings = {
+							Lua = {
+								diagnostics = {
+									globals = { "vim" },
+								},
 							},
 						},
-					},
-				})
-			end,
+					})
+				end,
+			},
 		})
 	end,
 }
