@@ -1,7 +1,7 @@
 local keymap = vim.keymap -- for conciseness
 
 local opts = { noremap = true, silent = true }
-local on_attach = function(client, bufnr)
+local on_attach = function(_, bufnr)
 	opts.buffer = bufnr
 
 	-- set keybinds
@@ -42,7 +42,7 @@ local on_attach = function(client, bufnr)
 	keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
 
 	opts.desc = "Restart LSP"
-	keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
+	keymap.set("n", "<leader>lR", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
 end
 
 return {
@@ -58,31 +58,46 @@ return {
 		mason.setup()
 
 		mason_lspconfig.setup({
-			ensure_installed = { "lua_ls",
-				"pyright",
-				"clangd",
-				"cssls",
-				"html",
-				"ltex"
-			},
+			ensure_installed = { "lua_ls", "pyright", "clangd", "cssls", "html" },
 
 			automatic_installation = true,
 		})
-		require("mason-lspconfig").setup_handlers {
+		require("mason-lspconfig").setup_handlers({
 			-- The first entry (without a key) will be the default handler
 			-- and will be called for each installed server that doesn't have
 			-- a dedicated handler.
 			function(server_name) -- default handler (optional)
-				require("lspconfig")[server_name].setup {
+				require("lspconfig")[server_name].setup({
 					on_attach = on_attach,
-					capabilities = cmp_nvim_lsp.default_capabilities()
-				}
+					capabilities = cmp_nvim_lsp.default_capabilities(),
+				})
 			end,
 			-- Next, you can provide a dedicated handler for specific servers.
 			-- For example, a handler override for the `rust_analyzer`:
 			-- ["rust_analyzer"] = function()
 			-- 	require("rust-tools").setup {}
 			-- end
-		}
-	end
+			["lua_ls"] = function()
+				require("lspconfig")["lua_ls"].setup({
+					on_attach = on_attach,
+					capabilities = cmp_nvim_lsp.default_capabilities(),
+					settings = { -- custom settings for lua
+						Lua = {
+							-- make the language server recognize "vim" global
+							diagnostics = {
+								globals = { "vim" },
+							},
+							workspace = {
+								-- make language server aware of runtime files
+								library = {
+									[vim.fn.expand("$VIMRUNTIME/lua")] = true,
+									[vim.fn.stdpath("config") .. "/lua"] = true,
+								},
+							},
+						},
+					},
+				})
+			end,
+		})
+	end,
 }
