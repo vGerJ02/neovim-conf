@@ -7,7 +7,7 @@ local map = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
 
 --Auxiliar functions
-function OptsWithDesc(options, desc)
+local function optsWithDesc(options, desc)
 	local custom_opts = vim.tbl_extend('keep', { desc = desc }, options)
 	return custom_opts
 end
@@ -20,16 +20,16 @@ bind("n", "<leader>w", vim.cmd.w, {desc = "[w]rite changes"})
 bind("n", "<leader>W", vim.cmd.wqall, {desc = "[W]rite all changes and quit"})
 
 --Windows
-bind("n", "<C-h>", "<C-w>h", OptsWithDesc(opts, "Focus left window"))
-bind("n", "<C-l>", "<C-w>l", OptsWithDesc(opts, "Focus right window"))
-bind("n", "<C-j>", "<C-w>j", OptsWithDesc(opts, "Focus down window"))
-bind("n", "<C-k>", "<C-w>k", OptsWithDesc(opts, "Focus upper window"))
+bind("n", "<C-h>", "<C-w>h", optsWithDesc(opts, "Focus left window"))
+bind("n", "<C-l>", "<C-w>l", optsWithDesc(opts, "Focus right window"))
+bind("n", "<C-j>", "<C-w>j", optsWithDesc(opts, "Focus down window"))
+bind("n", "<C-k>", "<C-w>k", optsWithDesc(opts, "Focus upper window"))
 
 --Resize
-bind("n", "<C-Up>", ":resize +2<CR>", OptsWithDesc(opts, "Resize up"))
-bind("n", "<C-Down>", ":resize -2<CR>", OptsWithDesc(opts, "Resize down"))
-bind("n", "<C-Left>", ":vertical resize -2<CR>", OptsWithDesc(opts, "Resize left"))
-bind("n", "<C-Right>", ":vertical resize +2<CR>", OptsWithDesc(opts, "Resize right"))
+bind("n", "<C-Up>", ":resize +2<CR>", optsWithDesc(opts, "Resize up"))
+bind("n", "<C-Down>", ":resize -2<CR>", optsWithDesc(opts, "Resize down"))
+bind("n", "<C-Left>", ":vertical resize -2<CR>", optsWithDesc(opts, "Resize left"))
+bind("n", "<C-Right>", ":vertical resize +2<CR>", optsWithDesc(opts, "Resize right"))
 
 
 --Plugins
@@ -44,37 +44,65 @@ bind('n', '<leader><esc>', vim.cmd.NvimTreeFocus, {desc = "Focus explorer"})
 
 
 --------------------------------------------------------------------------------Barbar
-
-
+-- NOW USING BUFFERLINE
+--
+-- -- Move to previous/next
+-- map('n', '<A-,>', '<Cmd>BufferPrevious<CR>', opts)
+-- map('n', '<A-.>', '<Cmd>BufferNext<CR>', opts)
+-- -- Re-order to previous/next
+-- map('n', '<A-<>', '<Cmd>BufferMovePrevious<CR>', opts)
+-- map('n', '<A->>', '<Cmd>BufferMoveNext<CR>', opts)
+-- -- Goto buffer in position...
+-- map('n', '<A-1>', '<Cmd>BufferGoto 1<CR>', opts)
+-- map('n', '<A-2>', '<Cmd>BufferGoto 2<CR>', opts)
+-- map('n', '<A-3>', '<Cmd>BufferGoto 3<CR>', opts)
+-- map('n', '<A-4>', '<Cmd>BufferGoto 4<CR>', opts)
+-- map('n', '<A-5>', '<Cmd>BufferGoto 5<CR>', opts)
+-- map('n', '<A-6>', '<Cmd>BufferGoto 6<CR>', opts)
+-- map('n', '<A-7>', '<Cmd>BufferGoto 7<CR>', opts)
+-- map('n', '<A-8>', '<Cmd>BufferGoto 8<CR>', opts)
+-- map('n', '<A-9>', '<Cmd>BufferGoto 9<CR>', opts)
+-- map('n', '<A-0>', '<Cmd>BufferLast<CR>', opts)
+-- -- Pin/unpin buffer
+-- map('n', '<A-p>', '<Cmd>BufferPin<CR>', opts)
+-- -- Close buffer
+-- map('n', '<A-q>', '<Cmd>BufferClose<CR>', opts)
+-- --Pick buffer
+-- map('n', '<C-p>', '<Cmd>BufferPick<CR>', opts)
+-- -- Sort automatically by...
+-- map('n', '<Space>bb', '<Cmd>BufferOrderByBufferNumber<CR>', optsWithDesc(opts, "Order by buffer number"))
+-- map('n', '<Space>bd', '<Cmd>BufferOrderByDirectory<CR>', optsWithDesc(opts, "Order by directory"))
+-- map('n', '<Space>bl', '<Cmd>BufferOrderByLanguage<CR>', optsWithDesc(opts, "Order by language"))
+-- map('n', '<Space>bw', '<Cmd>BufferOrderByWindowNumber<CR>', optsWithDesc(opts, "Order by window number"))
+--
 -- Move to previous/next
-map('n', '<A-,>', '<Cmd>BufferPrevious<CR>', opts)
-map('n', '<A-.>', '<Cmd>BufferNext<CR>', opts)
+map('n', '<A-,>', '<Cmd>BufferLineCyclePrev<CR>', opts)
+map('n', '<A-.>', '<Cmd>BufferLineCycleNext<CR>', opts)
 -- Re-order to previous/next
-map('n', '<A-<>', '<Cmd>BufferMovePrevious<CR>', opts)
-map('n', '<A->>', '<Cmd>BufferMoveNext<CR>', opts)
+map('n', '<A-<>', '<Cmd>BufferLineMovePrev<CR>', opts)
+map('n', '<A->>', '<Cmd>BufferLineMoveNext<CR>', opts)
 -- Goto buffer in position...
-map('n', '<A-1>', '<Cmd>BufferGoto 1<CR>', opts)
-map('n', '<A-2>', '<Cmd>BufferGoto 2<CR>', opts)
-map('n', '<A-3>', '<Cmd>BufferGoto 3<CR>', opts)
-map('n', '<A-4>', '<Cmd>BufferGoto 4<CR>', opts)
-map('n', '<A-5>', '<Cmd>BufferGoto 5<CR>', opts)
-map('n', '<A-6>', '<Cmd>BufferGoto 6<CR>', opts)
-map('n', '<A-7>', '<Cmd>BufferGoto 7<CR>', opts)
-map('n', '<A-8>', '<Cmd>BufferGoto 8<CR>', opts)
-map('n', '<A-9>', '<Cmd>BufferGoto 9<CR>', opts)
-map('n', '<A-0>', '<Cmd>BufferLast<CR>', opts)
+map('n', '<A-1>', '<Cmd>BufferLineGoToBuffer 1<CR>', opts)
+map('n', '<A-2>', '<Cmd>BufferLineGoToBuffer 2<CR>', opts)
+map('n', '<A-3>', '<Cmd>BufferLineGoToBuffer 3<CR>', opts)
+map('n', '<A-4>', '<Cmd>BufferLineGoToBuffer 4<CR>', opts)
+map('n', '<A-5>', '<Cmd>BufferLineGoToBuffer 5<CR>', opts)
+map('n', '<A-6>', '<Cmd>BufferLineGoToBuffer 6<CR>', opts)
+map('n', '<A-7>', '<Cmd>BufferLineGoToBuffer 7<CR>', opts)
+map('n', '<A-8>', '<Cmd>BufferLineGoToBuffer 8<CR>', opts)
+map('n', '<A-9>', '<Cmd>BufferLineGoToBuffer 9<CR>', opts)
+-- map('n', '<A-0>', '<Cmd>BufferLast<CR>', opts)
 -- Pin/unpin buffer
-map('n', '<A-p>', '<Cmd>BufferPin<CR>', opts)
+map('n', '<A-p>', '<Cmd>BufferLineTogglePin<CR>', opts)
 -- Close buffer
-map('n', '<A-q>', '<Cmd>BufferClose<CR>', opts)
+map('n', '<A-q>', '<Cmd>bp|bd#<CR>', opts)
 --Pick buffer
-map('n', '<C-p>', '<Cmd>BufferPick<CR>', opts)
+map('n', '<C-p>', '<Cmd>BufferLinePick<CR>', opts)
 -- Sort automatically by...
-map('n', '<Space>bb', '<Cmd>BufferOrderByBufferNumber<CR>', OptsWithDesc(opts, "Order by buffer number"))
-map('n', '<Space>bd', '<Cmd>BufferOrderByDirectory<CR>', OptsWithDesc(opts, "Order by directory"))
-map('n', '<Space>bl', '<Cmd>BufferOrderByLanguage<CR>', OptsWithDesc(opts, "Order by language"))
-map('n', '<Space>bw', '<Cmd>BufferOrderByWindowNumber<CR>', OptsWithDesc(opts, "Order by window number"))
-
+map('n', '<Space>bb', '<Cmd>BufferLineSortByTabs<CR>', optsWithDesc(opts, "Order by tabs"))
+map('n', '<Space>bd', '<Cmd>BufferLineSortByDirectory<CR>', optsWithDesc(opts, "Order by directory"))
+map('n', '<Space>bl', '<Cmd>BufferLineSortByExtension<CR>', optsWithDesc(opts, "Order by file extension"))
+map('n', '<Space>bw', '<Cmd>BufferLineSortByRelativeDirectory<CR>', optsWithDesc(opts, "Order by relative directory"))
 
 --------------------------------------------------------------------------------Teminal
 --For navigating easier in the terminal
@@ -89,9 +117,9 @@ function _G.set_terminal_keymaps()
 end
 vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 -- Multiple terminals with <id><C-\>
-map('n', '<Leader>/', '<cmd>ToggleTerm direction=float<cr>', OptsWithDesc(opts, "Floating term"))
-map('n', '<Leader>th', '<cmd>ToggleTerm size=20 direction=horizontal<cr>', OptsWithDesc(opts, "Horizontal term"))
-map('n', '<Leader>tv', '<cmd>ToggleTerm size=50 direction=vertical<cr>', OptsWithDesc(opts, "Vertical term"))
+map('n', '<Leader>/', '<cmd>ToggleTerm direction=float<cr>', optsWithDesc(opts, "Floating term"))
+map('n', '<Leader>th', '<cmd>ToggleTerm size=20 direction=horizontal<cr>', optsWithDesc(opts, "Horizontal term"))
+map('n', '<Leader>tv', '<cmd>ToggleTerm size=50 direction=vertical<cr>', optsWithDesc(opts, "Vertical term"))
 
 
 --------------------------------------------------------------------------------Fuzzy
@@ -109,4 +137,4 @@ bind('n','<leader>gg', '<cmd>LazyGit<cr>', opts)
 
 
 ---lsp
-bind('n','<leader>cf', vim.lsp.buf.format, OptsWithDesc(opts, "Code format"))
+-- bind('n','<leader>cf', vim.lsp.buf.format, optsWithDesc(opts, "Code format"))

@@ -12,9 +12,9 @@ local servers = {
 	"lua_ls",
 	"pyright",
 	"clangd",
-	"jdtls",
 	"cssls",
-	"bashls",
+	"html",
+	"ltex"
 }
 
 mason.setup()
@@ -47,4 +47,3 @@ for _, server in pairs(servers) do
 
 	lspconfig[server].setup(opts)
 end
-

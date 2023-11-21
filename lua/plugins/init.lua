@@ -1,20 +1,17 @@
 return {
 	-- Themes
-	{ "shaunsingh/nord.nvim",        name = 'nord',   lazy = true },
-	{ 'rose-pine/neovim',            as = 'rose-pine' },
+	{ "shaunsingh/nord.nvim",        name = 'nord',      lazy = true },
+	{ 'rose-pine/neovim',            name = 'rose-pine', opts = { disable_background = true, disable_float_background = true }, },
 
 	{ 'nvim-lualine/lualine.nvim',   opts = {} },
 	{ 'nvim-tree/nvim-web-devicons', lazy = true },
 	{ 'nvim-lua/plenary.nvim',       lazy = true },
 
-	{
-		'nvim-telescope/telescope.nvim', tag = '0.1.2',
-	},
-
 	'mbbill/undotree',
-	{ "windwp/nvim-autopairs",    opts = {} },
+	{ "windwp/nvim-autopairs",   opts = {} },
 
-	'romgrk/barbar.nvim',
+	--	'romgrk/barbar.nvim',
+	{ 'akinsho/bufferline.nvim', version = "*", dependencies = 'nvim-tree/nvim-web-devicons', opts = {} },
 
 	{
 		"folke/which-key.nvim",
@@ -22,12 +19,9 @@ return {
 			require("plugins.whichkey")
 		end
 	},
-
-	{ 'numToStr/Comment.nvim',    opts = {} },
-	{ 'norcalli/nvim-colorizer.lua', opts = {} },
-	-- { 'max397574/colortils.nvim', opts = {} },
+	{ 'numToStr/Comment.nvim',   opts = {} },
 
 	--Git
-	{ 'kdheepak/lazygit.nvim',    lazy = true, cmd = { 'LazyGit' } },
-	{ 'lewis6991/gitsigns.nvim',  opts = {} }
+	{ 'kdheepak/lazygit.nvim',   lazy = true, cmd = { 'LazyGit' } },
+	{ 'lewis6991/gitsigns.nvim', opts = {} }
 }

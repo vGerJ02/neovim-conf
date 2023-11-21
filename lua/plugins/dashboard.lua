@@ -1,6 +1,6 @@
 local conf = {}
 
-conf.saturn = {
+conf.headers = {
 	[[                                                   ]],
 	[[                                              ___  ]],
 	[[                                           ,o88888 ]],
@@ -26,7 +26,7 @@ conf.saturn = {
 	[[                                                   ]],
 }
 
-conf.plastikman = {
+conf.header = {
 	[[                                                    ]],
 	[[                                                    ]],
 	[[                 .0######0..                        ]],
@@ -63,13 +63,14 @@ return {
 			-- config
 			theme = 'doom',
 			config = {
-				header = conf.saturn, --your header
+				header = conf.header, --your header
 				center = {
 					{
 						icon = '  ',
 						icon_hl = 'Title',
 						desc = 'Find File           ',
-						key = 'f',
+						--desc_hl = 'String',
+						key = 'b',
 						action = 'Telescope find_files'
 					},
 					{
