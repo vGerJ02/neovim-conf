@@ -72,27 +72,14 @@ return {
 					capabilities = cmp_nvim_lsp.default_capabilities(),
 				})
 			end,
+
 			-- Next, you can provide a dedicated handler for specific servers.
-			-- For example, a handler override for the `rust_analyzer`:
-			-- ["rust_analyzer"] = function()
-			-- 	require("rust-tools").setup {}
-			-- end
 			["lua_ls"] = function()
-				require("lspconfig")["lua_ls"].setup({
-					on_attach = on_attach,
-					capabilities = cmp_nvim_lsp.default_capabilities(),
-					settings = { -- custom settings for lua
+				require("lspconfig").lua_ls.setup({
+					settings = {
 						Lua = {
-							-- make the language server recognize "vim" global
 							diagnostics = {
 								globals = { "vim" },
-							},
-							workspace = {
-								-- make language server aware of runtime files
-								library = {
-									[vim.fn.expand("$VIMRUNTIME/lua")] = true,
-									[vim.fn.stdpath("config") .. "/lua"] = true,
-								},
 							},
 						},
 					},
