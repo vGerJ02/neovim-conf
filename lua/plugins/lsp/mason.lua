@@ -1,7 +1,7 @@
 local keymap = vim.keymap -- for conciseness
 
 local opts = { noremap = true, silent = true }
-local on_attach = function(_, bufnr)
+local on_attach = function(client, bufnr)
 	opts.buffer = bufnr
 
 	-- set keybinds
@@ -21,7 +21,7 @@ local on_attach = function(_, bufnr)
 	keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts) -- show lsp type definitions
 
 	opts.desc = "See available code actions"
-	keymap.set({ "n", "v" }, "<seader>ca", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
+	keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts) -- see available code actions, in visual mode will apply to selection
 
 	opts.desc = "Smart rename"
 	keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts) -- smart rename
@@ -42,7 +42,7 @@ local on_attach = function(_, bufnr)
 	keymap.set("n", "K", vim.lsp.buf.hover, opts) -- show documentation for what is under cursor
 
 	opts.desc = "Restart LSP"
-	keymap.set("n", "<leader>lR", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
+	keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
 end
 
 return {
@@ -58,33 +58,31 @@ return {
 		mason.setup()
 
 		mason_lspconfig.setup({
-			ensure_installed = { "lua_ls", "pyright", "clangd", "cssls", "html" },
+			ensure_installed = { "lua_ls",
+				"pyright",
+				"clangd",
+				"cssls",
+				"html",
+				"ltex"
+			},
 
 			automatic_installation = true,
-			handlers = {
-				-- The first entry (without a key) will be the default handler
-				-- and will be called for each installed server that doesn't have
-				-- a dedicated handler.
-				function(server_name) -- default handler (optional)
-					require("lspconfig")[server_name].setup({
-						on_attach = on_attach,
-						capabilities = cmp_nvim_lsp.default_capabilities(),
-					})
-				end,
-
-				-- Next, you can provide a dedicated handler for specific servers.
-				["lua_ls"] = function()
-					require("lspconfig").lua_ls.setup({
-						settings = {
-							Lua = {
-								diagnostics = {
-									globals = { "vim" },
-								},
-							},
-						},
-					})
-				end,
-			},
 		})
-	end,
+		require("mason-lspconfig").setup_handlers {
+			-- The first entry (without a key) will be the default handler
+			-- and will be called for each installed server that doesn't have
+			-- a dedicated handler.
+			function(server_name) -- default handler (optional)
+				require("lspconfig")[server_name].setup {
+					on_attach = on_attach,
+					capabilities = cmp_nvim_lsp.default_capabilities()
+				}
+			end,
+			-- Next, you can provide a dedicated handler for specific servers.
+			-- For example, a handler override for the `rust_analyzer`:
+			-- ["rust_analyzer"] = function()
+			-- 	require("rust-tools").setup {}
+			-- end
+		}
+	end
 }

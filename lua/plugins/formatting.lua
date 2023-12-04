@@ -1,5 +1,5 @@
 return {
-	'stevearc/conform.nvim',
+	"stevearc/conform.nvim",
 	keys = {
 		{
 			-- Customize or remove this keymap to your liking
@@ -15,10 +15,12 @@ return {
 		formatters_by_ft = {
 			lua = { "stylua" },
 			-- Conform will run multiple formatters sequentially
-			python = { "isort", "black" },
+			-- python = { "isort", "black" },
+			python = { "autopep8"  },
 			-- Use a sub-list to run only the first available formatter
 			javascript = { { "prettierd", "prettier" } },
+			-- latex = { "latexindent" },
+			latex = { "bibtex-tidy" },
 		},
 	},
-
 }
