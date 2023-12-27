@@ -19,7 +19,7 @@ return {
 					enable = true,
 					additional_vim_regex_highlighting = { "latex" },
 				},
-				disable = { "latex" },
+				-- disable = { "latex", "tex" },
 			})
 		end,
 	},
