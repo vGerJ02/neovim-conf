@@ -1,26 +1,33 @@
 return {
-	"stevearc/conform.nvim",
+	"nvimtools/none-ls.nvim",
 	keys = {
 		{
-			-- Customize or remove this keymap to your liking
 			"<leader>cf",
 			function()
-				require("conform").format({ async = true, lsp_fallback = true })
+				vim.lsp.buf.format()
 			end,
-			mode = "n",
-			desc = "Format buffer",
 		},
 	},
-	opts = {
-		formatters_by_ft = {
-			lua = { "stylua" },
-			-- Conform will run multiple formatters sequentially
-			-- python = { "isort", "black" },
-			python = { "autopep8"  },
-			-- Use a sub-list to run only the first available formatter
-			javascript = { { "prettierd", "prettier" } },
-			-- latex = { "latexindent" },
-			latex = { "bibtex-tidy" },
-		},
-	},
+	config = function()
+		local null_ls_status_ok, null_ls = pcall(require, "null-ls")
+		if not null_ls_status_ok then
+			return
+		end
+
+		-- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
+		local formatting = null_ls.builtins.formatting
+		-- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
+		local diagnostics = null_ls.builtins.diagnostics
+
+		null_ls.setup({
+			debug = false,
+			sources = {
+				formatting.prettier.with({ extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote" } }),
+				formatting.black.with({ extra_args = { "--fast" } }),
+				formatting.stylua,
+				formatting.latexindent,
+				-- diagnostics.flake8
+			},
+		})
+	end,
 }
