@@ -8,16 +8,14 @@ local opts = { noremap = true, silent = true }
 
 --Auxiliar functions
 local function optsWithDesc(options, desc)
-	local custom_opts = vim.tbl_extend('keep', { desc = desc }, options)
+	local custom_opts = vim.tbl_extend("keep", { desc = desc }, options)
 	return custom_opts
 end
 
-
-
 --Default
-bind("n", "<leader>q", vim.cmd.q, {desc = "[q]uit"})
-bind("n", "<leader>w", vim.cmd.w, {desc = "[w]rite changes"})
-bind("n", "<leader>W", vim.cmd.wqall, {desc = "[W]rite all changes and quit"})
+bind("n", "<leader>q", vim.cmd.q, { desc = "[q]uit" })
+bind("n", "<leader>w", vim.cmd.w, { desc = "[w]rite changes" })
+bind("n", "<leader>W", vim.cmd.wqall, { desc = "[W]rite all changes and quit" })
 
 --Windows
 bind("n", "<C-h>", "<C-w>h", optsWithDesc(opts, "Focus left window"))
@@ -31,17 +29,23 @@ bind("n", "<C-Down>", ":resize -2<CR>", optsWithDesc(opts, "Resize down"))
 bind("n", "<C-Left>", ":vertical resize -2<CR>", optsWithDesc(opts, "Resize left"))
 bind("n", "<C-Right>", ":vertical resize +2<CR>", optsWithDesc(opts, "Resize right"))
 
+--Theme
+bind(
+	"n",
+	"<leader>tb",
+	":lua require('core.theme').toggle_background()<CR>",
+	optsWithDesc(opts, "Toggle background transparency")
+)
 
 --Plugins
 require("core.lazy")
 
 --------------------------------------------------------------------------------UndoTree
-bind('n', '<leader>ut', vim.cmd.UndotreeToggle, {desc = "[u]ndo [t]ree"})
+bind("n", "<leader>ut", vim.cmd.UndotreeToggle, { desc = "[u]ndo [t]ree" })
 
 --------------------------------------------------------------------------------Explorer
-bind('n', '<leader>e', vim.cmd.NvimTreeToggle)
-bind('n', '<leader><esc>', vim.cmd.NvimTreeFocus, {desc = "Focus explorer"})
-
+bind("n", "<leader>e", vim.cmd.NvimTreeToggle)
+bind("n", "<leader><esc>", vim.cmd.NvimTreeFocus, { desc = "Focus explorer" })
 
 --------------------------------------------------------------------------------Barbar
 -- NOW USING BUFFERLINE
@@ -76,65 +80,63 @@ bind('n', '<leader><esc>', vim.cmd.NvimTreeFocus, {desc = "Focus explorer"})
 -- map('n', '<Space>bw', '<Cmd>BufferOrderByWindowNumber<CR>', optsWithDesc(opts, "Order by window number"))
 --
 -- Move to previous/next
-map('n', '<A-,>', '<Cmd>BufferLineCyclePrev<CR>', opts)
-map('n', '<A-.>', '<Cmd>BufferLineCycleNext<CR>', opts)
+map("n", "<A-,>", "<Cmd>BufferLineCyclePrev<CR>", opts)
+map("n", "<A-.>", "<Cmd>BufferLineCycleNext<CR>", opts)
 -- Re-order to previous/next
-map('n', '<A-<>', '<Cmd>BufferLineMovePrev<CR>', opts)
-map('n', '<A->>', '<Cmd>BufferLineMoveNext<CR>', opts)
+map("n", "<A-<>", "<Cmd>BufferLineMovePrev<CR>", opts)
+map("n", "<A->>", "<Cmd>BufferLineMoveNext<CR>", opts)
 -- Goto buffer in position...
-map('n', '<A-1>', '<Cmd>BufferLineGoToBuffer 1<CR>', opts)
-map('n', '<A-2>', '<Cmd>BufferLineGoToBuffer 2<CR>', opts)
-map('n', '<A-3>', '<Cmd>BufferLineGoToBuffer 3<CR>', opts)
-map('n', '<A-4>', '<Cmd>BufferLineGoToBuffer 4<CR>', opts)
-map('n', '<A-5>', '<Cmd>BufferLineGoToBuffer 5<CR>', opts)
-map('n', '<A-6>', '<Cmd>BufferLineGoToBuffer 6<CR>', opts)
-map('n', '<A-7>', '<Cmd>BufferLineGoToBuffer 7<CR>', opts)
-map('n', '<A-8>', '<Cmd>BufferLineGoToBuffer 8<CR>', opts)
-map('n', '<A-9>', '<Cmd>BufferLineGoToBuffer 9<CR>', opts)
+map("n", "<A-1>", "<Cmd>BufferLineGoToBuffer 1<CR>", opts)
+map("n", "<A-2>", "<Cmd>BufferLineGoToBuffer 2<CR>", opts)
+map("n", "<A-3>", "<Cmd>BufferLineGoToBuffer 3<CR>", opts)
+map("n", "<A-4>", "<Cmd>BufferLineGoToBuffer 4<CR>", opts)
+map("n", "<A-5>", "<Cmd>BufferLineGoToBuffer 5<CR>", opts)
+map("n", "<A-6>", "<Cmd>BufferLineGoToBuffer 6<CR>", opts)
+map("n", "<A-7>", "<Cmd>BufferLineGoToBuffer 7<CR>", opts)
+map("n", "<A-8>", "<Cmd>BufferLineGoToBuffer 8<CR>", opts)
+map("n", "<A-9>", "<Cmd>BufferLineGoToBuffer 9<CR>", opts)
 -- map('n', '<A-0>', '<Cmd>BufferLast<CR>', opts)
 -- Pin/unpin buffer
-map('n', '<A-p>', '<Cmd>BufferLineTogglePin<CR>', opts)
+map("n", "<A-p>", "<Cmd>BufferLineTogglePin<CR>", opts)
 -- Close buffer
-map('n', '<A-q>', '<Cmd>bp|bd#<CR>', opts)
+map("n", "<A-q>", "<Cmd>bp|bd#<CR>", opts)
 --Pick buffer
-map('n', '<C-p>', '<Cmd>BufferLinePick<CR>', opts)
+map("n", "<C-p>", "<Cmd>BufferLinePick<CR>", opts)
 -- Sort automatically by...
-map('n', '<Space>bb', '<Cmd>BufferLineSortByTabs<CR>', optsWithDesc(opts, "Order by tabs"))
-map('n', '<Space>bd', '<Cmd>BufferLineSortByDirectory<CR>', optsWithDesc(opts, "Order by directory"))
-map('n', '<Space>bl', '<Cmd>BufferLineSortByExtension<CR>', optsWithDesc(opts, "Order by file extension"))
-map('n', '<Space>bw', '<Cmd>BufferLineSortByRelativeDirectory<CR>', optsWithDesc(opts, "Order by relative directory"))
+map("n", "<Space>bb", "<Cmd>BufferLineSortByTabs<CR>", optsWithDesc(opts, "Order by tabs"))
+map("n", "<Space>bd", "<Cmd>BufferLineSortByDirectory<CR>", optsWithDesc(opts, "Order by directory"))
+map("n", "<Space>bl", "<Cmd>BufferLineSortByExtension<CR>", optsWithDesc(opts, "Order by file extension"))
+map("n", "<Space>bw", "<Cmd>BufferLineSortByRelativeDirectory<CR>", optsWithDesc(opts, "Order by relative directory"))
 
 --------------------------------------------------------------------------------Teminal
 --For navigating easier in the terminal
 function _G.set_terminal_keymaps()
-	vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[<C-\><C-n>]], opts)
+	vim.api.nvim_buf_set_keymap(0, "t", "<esc>", [[<C-\><C-n>]], opts)
 
-	bind('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
-	bind('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
-	bind('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
-	bind('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
-	bind('t', '<C-w>', [[<C-\><C-n><C-w>]], opts)
+	bind("t", "<C-h>", [[<Cmd>wincmd h<CR>]], opts)
+	bind("t", "<C-j>", [[<Cmd>wincmd j<CR>]], opts)
+	bind("t", "<C-k>", [[<Cmd>wincmd k<CR>]], opts)
+	bind("t", "<C-l>", [[<Cmd>wincmd l<CR>]], opts)
+	bind("t", "<C-w>", [[<C-\><C-n><C-w>]], opts)
 end
-vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
--- Multiple terminals with <id><C-\>
-map('n', '<Leader>/', '<cmd>ToggleTerm direction=float<cr>', optsWithDesc(opts, "Floating term"))
-map('n', '<Leader>th', '<cmd>ToggleTerm size=20 direction=horizontal<cr>', optsWithDesc(opts, "Horizontal term"))
-map('n', '<Leader>tv', '<cmd>ToggleTerm size=50 direction=vertical<cr>', optsWithDesc(opts, "Vertical term"))
 
+vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
+-- Multiple terminals with <id><C-\>
+map("n", "<Leader>/", "<cmd>ToggleTerm size=15 direction=horizontal<cr>", optsWithDesc(opts, "Floating term"))
+map("n", "<Leader>tf", "<cmd>ToggleTerm direction=float<cr>", optsWithDesc(opts, "Floating term"))
+map("n", "<Leader>th", "<cmd>ToggleTerm size=20 direction=horizontal<cr>", optsWithDesc(opts, "Horizontal term"))
+map("n", "<Leader>tv", "<cmd>ToggleTerm size=50 direction=vertical<cr>", optsWithDesc(opts, "Vertical term"))
 
 --------------------------------------------------------------------------------Fuzzy
-local builtin = require('telescope.builtin')
-bind('n', '<leader>ff', builtin.find_files, {desc = "[f]ind [f]iles"})
-bind('n', '<leader>fs', builtin.live_grep, {desc = "[f]ind [s]tring in workspace"})
-bind('n', '<leader>fg', builtin.git_files, {desc = "[f]ind [g]it files"})
-bind('n', '<leader>fb', builtin.buffers, {desc = "[f]ind [b]uffers"})
-bind('n', '<leader>fk', builtin.keymaps, {desc = "[f]ind [k]eymaps"})
-
+local builtin = require("telescope.builtin")
+bind("n", "<leader>ff", builtin.find_files, { desc = "[f]ind [f]iles" })
+bind("n", "<leader>fs", builtin.live_grep, { desc = "[f]ind [s]tring in workspace" })
+bind("n", "<leader>fg", builtin.git_files, { desc = "[f]ind [g]it files" })
+bind("n", "<leader>fb", builtin.buffers, { desc = "[f]ind [b]uffers" })
+bind("n", "<leader>fk", builtin.keymaps, { desc = "[f]ind [k]eymaps" })
 
 -------------------------------------------------------------------------------Git
-bind('n','<leader>gg', '<cmd>LazyGit<cr>', opts)
-
-
+bind("n", "<leader>gg", "<cmd>LazyGit<cr>", opts)
 
 ---lsp
 -- bind('n','<leader>cf', vim.lsp.buf.format, optsWithDesc(opts, "Code format"))
