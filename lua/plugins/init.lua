@@ -6,6 +6,7 @@ return {
 		name = "rose-pine",
 		lazy = true,
 	},
+	{ "catppuccin/nvim", name = "catppuccin", lazy = true },
 
 	{ "nvim-lualine/lualine.nvim", opts = {} },
 	{ "nvim-tree/nvim-web-devicons", lazy = true },
@@ -25,6 +26,8 @@ return {
 	--Git
 	{ "kdheepak/lazygit.nvim", lazy = true, cmd = { "LazyGit" } },
 	{ "lewis6991/gitsigns.nvim", opts = {} },
+	{ "akinsho/git-conflict.nvim", version = "*", config = true },
+
 	"brenoprata10/nvim-highlight-colors",
 	{ "b0o/incline.nvim", opts = {} },
 }
