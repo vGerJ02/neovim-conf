@@ -136,7 +136,17 @@ bind("n", "<leader>fb", builtin.buffers, { desc = "[f]ind [b]uffers" })
 bind("n", "<leader>fk", builtin.keymaps, { desc = "[f]ind [k]eymaps" })
 
 -------------------------------------------------------------------------------Git
+opts.desc = "Open Lazy Git"
 bind("n", "<leader>gg", "<cmd>LazyGit<cr>", opts)
+opts.desc = "Check git status"
+bind("n", "<leader>gs", "<cmd>Telescope git_status<cr>", opts)
+opts.desc = "Check git commits"
+bind("n", "<leader>gc", "<cmd>Telescope git_commits<cr>", opts)
+opts.desc = "Check git branches"
+bind("n", "<leader>gb", "<cmd>Telescope git_branches<cr>", opts)
+opts.desc = "Check git stash"
+bind("n", "<leader>gh", "<cmd>Telescope git_stash<cr>", opts)
+opts.desc = ""
 
 ---lsp
 -- bind('n','<leader>cf', vim.lsp.buf.format, optsWithDesc(opts, "Code format"))
