@@ -56,37 +56,34 @@ conf.header = {
 return {
 	"glepnir/dashboard-nvim",
 	event = "VimEnter",
-	config = function()
-		require("dashboard").setup({
-			-- config
-			theme = "doom",
-			config = {
-				header = conf.header,
-				center = {
-					{
-						icon = "  ",
-						icon_hl = "Title",
-						desc = "Find File           ",
-						--desc_hl = 'String',
-						key = "f",
-						action = "Telescope find_files",
-					},
-					{
-						icon = "  ",
-						desc = "Find recent",
-						key = "r",
-						action = "Telescope oldfiles",
-					},
-					{
-						icon = "  ",
-						desc = "Config",
-						key = "c",
-						action = "cd ~/.config/nvim | Telescope find_files",
-					},
+	opts = {
+		theme = "doom",
+		config = {
+			header = conf.header,
+			center = {
+				{
+					icon = "  ",
+					icon_hl = "Title",
+					desc = "Find File           ",
+					--desc_hl = 'String',
+					key = "f",
+					action = "Telescope find_files",
 				},
-				footer = {},
+				{
+					icon = "  ",
+					desc = "Find recent",
+					key = "r",
+					action = "Telescope oldfiles",
+				},
+				{
+					icon = "  ",
+					desc = "Config",
+					key = "c",
+					action = "cd ~/.config/nvim | Telescope find_files",
+				},
 			},
-		})
-	end,
+			footer = {},
+		},
+	},
 	dependencies = { { "nvim-tree/nvim-web-devicons" } },
 }
