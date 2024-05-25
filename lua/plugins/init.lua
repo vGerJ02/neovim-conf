@@ -8,7 +8,17 @@ return {
 	},
 	{ "catppuccin/nvim", name = "catppuccin", lazy = true },
 
-	{ "nvim-lualine/lualine.nvim", opts = {} },
+	{
+		"nvim-lualine/lualine.nvim",
+		opts = {
+			options = {
+				disabled_filetypes = {
+					statusline = { "dashboard" },
+					winbar = { "dashboard" },
+				},
+			},
+		},
+	},
 	{ "nvim-tree/nvim-web-devicons", lazy = true },
 	{ "nvim-lua/plenary.nvim", lazy = true },
 
