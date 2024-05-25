@@ -14,6 +14,10 @@ return {
 			},
 			-- See Configuration section for rest
 		},
+		config = function()
+			require("copilot").setup({})
+			require("CopilotChat").setup({})
+		end,
 		-- See Commands section for default commands if you want to lazy load on them
 	},
 }
