@@ -44,9 +44,15 @@ function M.set_up_rose(tranparent)
 		disable_float_background = tranparent,
 	})
 
-	vim.cmd.colorscheme("rose-pine")
-	if tranparent then
+	if tranparent == true then
 		set_transparent()
+	else
+		-- vim.cmd.colorscheme("rose-pine")
+		vim.api.nvim_set_hl(0, "Normal", { bg = M.normal_bg })
+		vim.api.nvim_set_hl(0, "NormalFloat", { bg = M.normal_bg })
+		vim.cmd.highlight("GitSignsAdd guibg=" .. M.normal_bg)
+		vim.cmd.highlight("GitSignsDelete guibg=" .. M.normal_bg)
+		vim.cmd.highlight("GitSignsChange guibg=" .. M.normal_bg)
 	end
 end
 
