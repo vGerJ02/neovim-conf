@@ -6,18 +6,15 @@ return {
 		require("which-key").setup({})
 		local wk = require("which-key")
 
-		wk.register({
-			["<leader>"] = {
-				a = { "Show function" },
-				b = { name = "+Buffers" },
-				f = { name = "+Find" },
-				e = { "Explorer" },
-				g = { name = "+Git" },
-				t = { name = "+Terminal" },
-				c = { name = "+Code" },
-				u = { name = "+Undo" }
-			}
-
+		wk.add({
+			{ "<leader>a", desc = "Show functions" },
+			{ "<leader>e", desc = "Explorer" },
+			{ "<leader>b", group = "+Buffers" },
+			{ "<leader>f", group = "+Find" },
+			{ "<leader>g", group = "+Git" },
+			{ "<leader>t", group = "+Terminal" },
+			{ "<leader>c", group = "+Code" },
+			{ "<leader>u", group = "+Undo" },
 		})
 	end,
 }

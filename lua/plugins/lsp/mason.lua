@@ -80,7 +80,7 @@ return {
 				"lua_ls",
 				"pyright",
 				"clangd",
-				"tsserver",
+				"ts_ls",
         "volar",
 			},
 
@@ -116,12 +116,12 @@ return {
 					},
 				})
 			end,
-			["tsserver"] = function()
+			["ts_ls"] = function()
 				local lsp = require("lspconfig")
 				local mason_registry = require("mason-registry")
 				local vue_language_server_path = mason_registry.get_package("vue-language-server"):get_install_path()
 					.. "/node_modules/@vue/language-server"
-				lsp.tsserver.setup({
+				lsp.ts_ls.setup({
 					on_attach = on_attach,
 					capabilities = cmp_nvim_lsp.default_capabilities(),
 					init_options = {
