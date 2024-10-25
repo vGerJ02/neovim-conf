@@ -44,14 +44,15 @@ require("core.lazy")
 bind("n", "<leader>ut", vim.cmd.UndotreeToggle, { desc = "[u]ndo [t]ree" })
 
 --------------------------------------------------------------------------------Explorer
-bind("n", "<leader>e", vim.cmd.NvimTreeToggle)
-bind("n", "<leader><esc>", vim.cmd.NvimTreeFocus, { desc = "Focus explorer" })
-bind(
-	"n",
-	"<leader>bcd",
-	":cd %:p:h<CR>:NvimTreeOpen %:p:h<CR>",
-	optsWithDesc(opts, "Change to current buffer file directory")
-)
+-- bind("n", "<leader>e", vim.cmd.NvimTreeToggle)
+-- bind("n", "<leader><esc>", vim.cmd.NvimTreeFocus, { desc = "Focus explorer" })
+-- bind(
+-- 	"n",
+-- 	"<leader>bcd",
+-- 	":cd %:p:h<CR>:NvimTreeOpen %:p:h<CR>",
+-- 	optsWithDesc(opts, "Change to current buffer file directory")
+-- )
+bind("n", "<leader>e", "<Cmd>lua MiniFiles.open()<CR>", opts)
 
 --------------------------------------------------------------------------------Barbar
 -- NOW USING BUFFERLINE

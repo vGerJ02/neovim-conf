@@ -8,7 +8,17 @@ return {
 		"saadparwaiz1/cmp_luasnip", -- for autocompletion
 		"rafamadriz/friendly-snippets", -- useful snippets
 		"onsails/lspkind.nvim", -- vs-code like pictograms
+		"luckasRanarison/tailwind-tools.nvim",
 	},
+  opts = function()
+    return {
+      formatting = {
+        format = require("lspkind").cmp_format({
+          before = require("tailwind-tools.cmp").lspkind_format
+        }),
+      },
+    }
+  end,
 	config = function()
 		local cmp = require("cmp")
 

@@ -1,13 +1,20 @@
+-- return {
+-- 	{
+-- 		"nvim-tree/nvim-tree.lua",
+-- 		opts = {
+-- 			filters = {
+-- 				dotfiles = false,
+-- 			},
+-- 			view = {
+-- 				adaptive_size = true
+-- 			}
+-- 		}
+-- 	}
+-- }
 return {
-	{
-		"nvim-tree/nvim-tree.lua",
-		opts = {
-			filters = {
-				dotfiles = false,
-			},
-			view = {
-				adaptive_size = true
-			}
-		}
-	}
+	"echasnovski/mini.nvim",
+	config = function()
+		require("mini.files").setup()
+	end,
+	version = "*",
 }
