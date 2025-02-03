@@ -4,6 +4,11 @@ return {
 	dependencies = {
 		"hrsh7th/cmp-nvim-lsp",
 	},
+	opts = {
+		servers = {
+			lua_ls = {},
+		},
+	},
 	config = function()
 		--Side signs
 		local signs = {
@@ -36,6 +41,5 @@ return {
 		}
 
 		vim.diagnostic.config(config)
-	end
-
+	end,
 }

@@ -16,6 +16,7 @@ end
 bind("n", "<leader>q", vim.cmd.q, { desc = "[q]uit" })
 bind("n", "<leader>w", vim.cmd.w, { desc = "[w]rite changes" })
 bind("n", "<leader>W", vim.cmd.wqall, { desc = "[W]rite all changes and quit" })
+bind("i", "jj", "<Esc>", optsWithDesc(opts, "Go normal"))
 
 --Windows
 bind("n", "<C-h>", "<C-w>h", optsWithDesc(opts, "Focus left window"))
@@ -28,6 +29,10 @@ bind("n", "<C-Up>", ":resize +2<CR>", optsWithDesc(opts, "Resize up"))
 bind("n", "<C-Down>", ":resize -2<CR>", optsWithDesc(opts, "Resize down"))
 bind("n", "<C-Left>", ":vertical resize -2<CR>", optsWithDesc(opts, "Resize left"))
 bind("n", "<C-Right>", ":vertical resize +2<CR>", optsWithDesc(opts, "Resize right"))
+
+-- Registers
+bind("n", ",p", '"0p', optsWithDesc(opts, "Paste last yank register"))
+bind("n", ",P", '"0P', optsWithDesc(opts, "Paste last yank register"))
 
 --Theme
 bind(

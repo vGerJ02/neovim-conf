@@ -41,7 +41,7 @@ return {
         end,
         prettier = function()
           null_ls.setup()
-          null_ls.register(formatting.prettier.with({ extra_args = { "--no-semi", "--single-quote" } }))
+          null_ls.register(formatting.prettier.with({ extra_args = {} }))
         end,
       },
     })

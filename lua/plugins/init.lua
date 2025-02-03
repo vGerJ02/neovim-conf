@@ -1,12 +1,12 @@
 return {
 	-- Themes
-	{ "shaunsingh/nord.nvim", name = "nord", lazy = true },
+	{ "shaunsingh/nord.nvim", name = "nord" },
 	{
 		"rose-pine/neovim",
 		name = "rose-pine",
-		lazy = true,
 	},
-	{ "catppuccin/nvim", name = "catppuccin", lazy = true },
+	{ "catppuccin/nvim", name = "catppuccin" },
+	{ "rebelot/kanagawa.nvim" },
 
 	{
 		"nvim-lualine/lualine.nvim",
