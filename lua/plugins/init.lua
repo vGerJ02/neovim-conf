@@ -35,7 +35,12 @@ return {
 
 	--Git
 	{ "kdheepak/lazygit.nvim", lazy = true, cmd = { "LazyGit" } },
-	{ "lewis6991/gitsigns.nvim", opts = {} },
+	{
+		"lewis6991/gitsigns.nvim",
+		opts = {
+			on_attach = require("core.mappings.gitsigns").on_attach,
+		},
+	},
 	{ "akinsho/git-conflict.nvim", version = "*", config = true },
 
 	"brenoprata10/nvim-highlight-colors",

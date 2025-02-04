@@ -33,6 +33,7 @@ bind("n", "<C-Right>", ":vertical resize +2<CR>", optsWithDesc(opts, "Resize rig
 -- Registers
 bind("n", ",p", '"0p', optsWithDesc(opts, "Paste last yank register"))
 bind("n", ",P", '"0P', optsWithDesc(opts, "Paste last yank register"))
+bind("n", ",y", '"*y', optsWithDesc(opts, "Yank into system clipboard"))
 
 --Theme
 bind(
