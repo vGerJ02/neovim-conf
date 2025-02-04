@@ -7,6 +7,9 @@ return {
 		-- Required.
 		"nvim-lua/plenary.nvim",
 	},
+	init = function()
+		vim.opt.conceallevel = 2
+	end,
 	opts = {
 		workspaces = {
 			{
@@ -19,7 +22,4 @@ return {
 			},
 		},
 	},
-	-- config = function()
-	-- 	vim.opt.conceallevel = 2
-	-- end,
 }
