@@ -4,6 +4,9 @@ return {
 	{
 		"rose-pine/neovim",
 		name = "rose-pine",
+		styles = {
+			transparency = true,
+		},
 	},
 	{ "catppuccin/nvim", name = "catppuccin" },
 	{ "rebelot/kanagawa.nvim" },
