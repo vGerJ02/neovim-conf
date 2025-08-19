@@ -26,6 +26,6 @@ return {
 			-- Telescope only: If load_on_setup is false, make sure you use `:SessionSearch` to open the picker as it will initialize everything first
 			load_on_setup = true,
 		},
+		close_filetypes_on_save = { "checkhealth", "neo-tree" },
 	},
-	close_filetypes_on_save = { "checkhealth", "neo-tree", "filesystem", "neo-tree filesystem" },
 }

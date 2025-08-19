@@ -14,4 +14,4 @@ return is_gh_installed()
 			},
 			opts = {},
 		}
-	or nil
+	or {}
