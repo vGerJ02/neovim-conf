@@ -18,8 +18,12 @@ return {
 			window = {
 				mappings = {
 					["\\"] = "close_window",
+					["s"] = false,
 				},
 			},
+		},
+		window = {
+			position = "right",
 		},
 	},
 }

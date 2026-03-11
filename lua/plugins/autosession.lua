@@ -1,31 +1,31 @@
 return {
-	"rmagatti/auto-session",
-	lazy = false,
-
-	keys = {
-		-- Will use Telescope if installed or a vim.ui.select picker otherwise
-		{ "<leader>ss", "<cmd>SessionSearch<CR>", desc = "Session search" },
-		{ "<leader>ws", "<cmd>SessionSave<CR>", desc = "Save session" },
-		{ "<leader>wa", "<cmd>SessionToggleAutoSave<CR>", desc = "Toggle autosave" },
-		{ "<leader>wd", "<cmd>SessionDelete<CR>", desc = "Delete current session" },
-	},
-
-	---enables autocomplete for opts
-	---@module "auto-session"
-	---@type AutoSession.Config
-	opts = {
-		-- The following are already the default values, no need to provide them if these are already the settings you want.
-		session_lens = {
-			mappings = {
-				-- Mode can be a string or a table, e.g. {"i", "n"} for both insert and normal mode
-				delete_session = { "i", "<C-D>" },
-				alternate_session = { "i", "<C-S>" },
-				copy_session = { "i", "<C-Y>" },
-			},
-
-			-- Telescope only: If load_on_setup is false, make sure you use `:SessionSearch` to open the picker as it will initialize everything first
-			load_on_setup = true,
-		},
-		close_filetypes_on_save = { "checkhealth", "neo-tree" },
-	},
+	-- "rmagatti/auto-session",
+	-- lazy = false,
+	--
+	-- keys = {
+	-- 	-- Will use Telescope if installed or a vim.ui.select picker otherwise
+	-- 	{ "<leader>ss", "<cmd>SessionSearch<CR>", desc = "Session search" },
+	-- 	{ "<leader>ws", "<cmd>SessionSave<CR>", desc = "Save session" },
+	-- 	{ "<leader>wa", "<cmd>SessionToggleAutoSave<CR>", desc = "Toggle autosave" },
+	-- 	{ "<leader>wd", "<cmd>SessionDelete<CR>", desc = "Delete current session" },
+	-- },
+	--
+	-- ---enables autocomplete for opts
+	-- ---@module "auto-session"
+	-- ---@type AutoSession.Config
+	-- opts = {
+	-- 	-- The following are already the default values, no need to provide them if these are already the settings you want.
+	-- 	session_lens = {
+	-- 		mappings = {
+	-- 			-- Mode can be a string or a table, e.g. {"i", "n"} for both insert and normal mode
+	-- 			delete_session = { "i", "<C-D>" },
+	-- 			alternate_session = { "i", "<C-S>" },
+	-- 			copy_session = { "i", "<C-Y>" },
+	-- 		},
+	--
+	-- 		-- Telescope only: If load_on_setup is false, make sure you use `:SessionSearch` to open the picker as it will initialize everything first
+	-- 		load_on_setup = true,
+	-- 	},
+	-- },
+	-- close_filetypes_on_save = { "checkhealth", "neo-tree", "filesystem", "neo-tree filesystem" },
 }

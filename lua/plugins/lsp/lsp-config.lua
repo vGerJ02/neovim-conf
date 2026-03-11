@@ -208,7 +208,6 @@ return {
 		local servers = {
 			-- clangd = {},
 			-- gopls = {},
-			-- pyright = {},
 			-- rust_analyzer = {},
 			-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
 			--
@@ -218,6 +217,34 @@ return {
 			-- But for many setups, the LSP (`ts_ls`) will work just fine
 			-- ts_ls = {},
 			--
+			texlab = {
+				cmd = { "texlab" },
+				settings = {
+					texlab = {
+						build = {
+							args = { "-shell-escape", "-synctex=1", "%file" },
+							forwardSearchAfter = true,
+						},
+						forwardSearch = {
+							executable = "zathura",
+							args = { "--synctex-forward", "%l:1:%f", "%p" },
+						},
+						diagnostics = {
+							allowedFiles = { "*.tex" },
+						},
+					},
+				},
+				on_attach = function(client, bufnr)
+					if client.server_capabilities.documentFormattingProvider then
+						vim.api.nvim_create_autocmd("BufWritePre", {
+							buffer = bufnr,
+							callback = function()
+								vim.lsp.buf.format({ async = false })
+							end,
+						})
+					end
+				end,
+			},
 
 			lua_ls = {
 				-- cmd = { ... },
@@ -255,7 +282,9 @@ return {
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
 		require("mason-lspconfig").setup({
-			ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
+			ensure_installed = {
+				"texlab",
+			}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
 			automatic_installation = false,
 			handlers = {
 				function(server_name)
