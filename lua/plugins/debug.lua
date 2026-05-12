@@ -126,12 +126,62 @@ return {
 		dap.listeners.before.event_terminated["dapui_config"] = dapui.close
 		dap.listeners.before.event_exited["dapui_config"] = dapui.close
 
+		local function project_root()
+			return vim.fs.root(0, { "go.work", "go.mod", ".git" }) or vim.loop.cwd()
+		end
+
+		local function resolve_go_program()
+			local root = project_root()
+			local cmd_main = root .. "/cmd/main.go"
+			local root_main = root .. "/main.go"
+
+			if vim.fn.filereadable(cmd_main) == 1 then
+				return cmd_main
+			end
+			if vim.fn.filereadable(root_main) == 1 then
+				return root_main
+			end
+
+			return root
+		end
+
+		local function prompt_go_program()
+			local root = project_root()
+			local default = resolve_go_program()
+
+			local input = vim.fn.input("Go entrypoint (file or dir): ", default, "file")
+
+			if input == nil or input == "" then
+				return default
+			end
+
+			if not vim.startswith(input, "/") then
+				input = root .. "/" .. input
+			end
+
+			return vim.fn.fnamemodify(input, ":p")
+		end
+
 		-- Install golang specific config
 		require("dap-go").setup({
 			delve = {
 				-- On Windows delve must be run attached or it crashes.
 				-- See https://github.com/leoluz/nvim-dap-go/blob/main/README.md#configuring
 				detached = vim.fn.has("win32") == 0,
+			},
+			dap_configurations = {
+				{
+					type = "go",
+					name = "Debug main (auto: cmd/main.go -> main.go -> pkg)",
+					request = "launch",
+					program = resolve_go_program,
+				},
+				{
+					type = "go",
+					name = "Debug main (prompt entrypoint)",
+					request = "launch",
+					program = prompt_go_program,
+				},
 			},
 		})
 	end,

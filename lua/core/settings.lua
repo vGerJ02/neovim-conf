@@ -52,3 +52,5 @@ vim.opt.confirm = true
 
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
+
+vim.opt.termguicolors = true

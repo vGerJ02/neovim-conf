@@ -25,7 +25,6 @@ return { -- Collection of various small independent plugins/modules
 				update_n_lines = "gsn",
 			},
 		})
-
 		-- Simple and easy statusline.
 		--  You could remove this setup call if you don't like it,
 		--  and try some other statusline plugin
