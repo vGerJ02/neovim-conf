@@ -44,6 +44,10 @@ return {
 		-- Nix linting, only on NixOS. statix and deadnix are expected to come
 		-- from the Nix store rather than Mason.
 		local nixos = require("core.nixos")
+		-- Provided by this config's dev shell, not installed by Neovim.
+		if nixos.executable("luacheck") then
+			lint.linters_by_ft.lua = { "luacheck" }
+		end
 		if nixos.is_nixos then
 			local nix_linters = {}
 			if nixos.executable("statix") then
