@@ -41,6 +41,22 @@ return {
 		lint.linters_by_ft["terraform"] = nil
 		lint.linters_by_ft["text"] = nil
 
+		-- Nix linting, only on NixOS. statix and deadnix are expected to come
+		-- from the Nix store rather than Mason.
+		local nixos = require("core.nixos")
+		if nixos.is_nixos then
+			local nix_linters = {}
+			if nixos.executable("statix") then
+				table.insert(nix_linters, "statix")
+			end
+			if nixos.executable("deadnix") then
+				table.insert(nix_linters, "deadnix")
+			end
+			if #nix_linters > 0 then
+				lint.linters_by_ft["nix"] = nix_linters
+			end
+		end
+
 		-- Create autocommand which carries out the actual linting
 		-- on the specified events.
 		local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })

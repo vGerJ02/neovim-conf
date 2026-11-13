@@ -4,7 +4,13 @@ return {
 	dependencies = {
 		-- Automatically install LSPs and related tools to stdpath for Neovim
 		-- Mason must be loaded before its dependents so we need to set it up here.
-		{ "williamboman/mason.nvim", opts = {} },
+		{
+			"williamboman/mason.nvim",
+			opts = function()
+				-- Never let old Mason binaries shadow flake/global tools on NixOS.
+				return { PATH = require("core.nixos").is_nixos and "skip" or "prepend" }
+			end,
+		},
 		"williamboman/mason-lspconfig.nvim",
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 
@@ -171,7 +177,8 @@ return {
 		local capabilities = require("blink.cmp").get_lsp_capabilities()
 
 		-- Enable the following language servers
-		--  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
+		-- Add servers here. On NixOS, provide their binaries in your dev shell;
+		-- elsewhere, Mason installs them automatically.
 		--
 		--  Add any additional override configuration in the following tables. Available keys are:
 		--  - cmd (table): Override the default command used to start the server
@@ -236,6 +243,34 @@ return {
 			},
 		}
 
+		-- Nix language server, only enabled on NixOS.
+		--
+		-- nixd/nixfmt are installed globally through Nix instead of Mason:
+		-- Mason ships prebuilt binaries that are not patched for the Nix store, so
+		-- they usually fail to start on NixOS.
+		local nixos = require("core.nixos")
+		if nixos.is_nixos then
+			if nixos.executable("nixd") then
+				vim.lsp.config("nixd", {
+					capabilities = capabilities,
+					settings = {
+						nixd = {
+							-- Enables nixpkgs package completion (not NixOS module options).
+							-- Adjust or remove if your NIX_PATH points somewhere else.
+							nixpkgs = { expr = "import <nixpkgs> {}" },
+							formatting = { command = { "nixfmt" } },
+						},
+					},
+				})
+				vim.lsp.enable("nixd")
+			else
+				vim.notify(
+					"NixOS detected, but `nixd` was not found on PATH. Install it to get Nix LSP support.",
+					vim.log.levels.WARN
+				)
+			end
+		end
+
 		-- Ensure the servers and tools above are installed
 		--
 		-- To check the current status of installed tools and/or manually install
@@ -253,23 +288,35 @@ return {
 		vim.list_extend(ensure_installed, {
 			"stylua", -- Used to format Lua code
 		})
-		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+		if not nixos.is_nixos then
+			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+		end
 
-		require("mason-lspconfig").setup({
-			ensure_installed = {
-				"texlab",
-			}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
-			automatic_installation = false,
-			handlers = {
-				function(server_name)
-					local server = servers[server_name] or {}
-					-- This handles overriding only values explicitly passed
-					-- by the server configuration above. Useful when disabling
-					-- certain features of an LSP (for example, turning off formatting for ts_ls)
-					server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-					require("lspconfig")[server_name].setup(server)
-				end,
-			},
-		})
+		-- mason-lspconfig v2 removed `handlers` and `automatic_installation`:
+		-- Mason now only installs servers, while each server is configured via
+		-- `vim.lsp.config` and enabled with `vim.lsp.enable`.
+		--
+		-- `automatic_enable` (on by default) enables servers that Mason installed.
+		-- Explicit `vim.lsp.enable` calls below are still needed for servers that
+		-- are not managed by Mason (or before Mason finishes installing them).
+		if not nixos.is_nixos then
+			require("mason-lspconfig").setup({
+				ensure_installed = vim.tbl_keys(servers or {}),
+				-- Conform already handles StyLua formatting; don't start its LSP.
+				automatic_enable = {
+					exclude = { "stylua" },
+				},
+			})
+		end
+
+		for server_name, server in pairs(servers or {}) do
+			server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+			vim.lsp.config(server_name, server)
+			-- Missing project tools are normal outside their dev shell.
+			local cmd = vim.lsp.config[server_name].cmd
+			if not nixos.is_nixos or (type(cmd) == "table" and nixos.executable(cmd[1])) then
+				vim.lsp.enable(server_name)
+			end
+		end
 	end,
 }
